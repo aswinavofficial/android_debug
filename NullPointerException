@@ -1,0 +1,7 @@
+In Java, when you declare a reference variable, you’re actually creating a pointer to an object. You can declare that an object is currently pointing at an unknown piece of data by assigning a null value to that object’s reference. Null values can be useful in coding some design patterns, but if you encounter a NullPointerException (NPE) then it means that you’ve tried to use a reference that’s pointing at a null value, as though it were referencing an object. Since there’s no code to execute in the location where this reference is pointing, you wind up with an NPE.
+
+An NPE is usually accompanied by information about where this exception was caught, so the Logcat Monitor should contain the exact line where this error occurred. Navigate to this area of your project and identify the reference that equals null. You'll then need to find the location where the value should be set, and set it.
+
+The findViewById method can also return null if the requested View can’t be found, so if your NPE is occurring in a line that contains a findViewById, check that you’ve initialized the layout that contains this View. Also be on the lookout for any spelling mistakes or typos that may have crept into your findViewById call, as these can also result in an NPE.  
+
+To avoid NPEs occurring in your project, make sure all your objects are initialized before you attempt to use them, and always verify that a variable isn’t null before you request a method or field from that object.
