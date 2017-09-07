@@ -1,0 +1,13 @@
+This is an error that appears as a dialogue on the Android device or AVD you’re using to test your app. The Application Not Responding (ANR) error occurs when your app’s UI freezes and remains unresponsive to user input for more than five seconds. This usually happens because your app is trying to perform lengthy or intensive operations on Android’s main UI thread.
+
+In Android, the main UI thread is responsible for dispatching all user input events to the appropriate UI widgets, and for updating your app’s UI. However, this thread can only process one task at a time, so if you block the main thread with any long-running or intensive operations, then your UI will be completely unresponsive until this task is complete.
+
+If you encounter an ANR message while testing your app, then you definitely need to take a look at the work you’re performing on the main thread. However, if you don’t explicitly encounter this error but notice that your app sometimes feels sluggish or laggy, then this is an indication that you’re on the verge of an ANR error, and once again you should take a look at the state of your UI thread.
+
+To resolve ANR errors (and near-ANR errors), you need to identify all the operations that have the potential to run slowly, or that require significant processing power, and then move them off the main thread. You do this by creating a worker thread where these operations can be performed with zero risk of blocking the main UI thread.
+
+There are several methods of creating additional threads, but the simplest solution is to use an AsynTask, as this class already contains its own worker thread and an onPostExecute() callback that you can use to communicate with Android’s main UI thread.
+
+However, AsyncTasks are better suited to performing short background operations, so if you need to perform a long-running operation, then you should use a Service or an IntentService instead.
+
+Although moving long-running and intensive tasks off the main thread will have the most impact on your app’s performance, it’s best practice to perform as little work as possible on the main UI thread. Even running a small amount of unnecessary code on the main thread can have an impact on your app’s responsiveness, so once you’ve successfully relocated all of your long-running and intensive operations, you should look at whether there’s any more code that you can move off the main thread.
