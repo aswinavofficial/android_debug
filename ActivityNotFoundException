@@ -1,0 +1,29 @@
+An ActivityNotFoundException occurs when a call to startActivity(Intent) or one of its variants fails because the Activity can’t execute the given Intent.
+
+The most common cause of an ActivityNotFoundException is forgetting to declare an activity in your manifest, so open your manifest and check that you’ve declared all your activities. You should also check that you’ve declared each activity correctly, using either a fully qualified class name or a full stop as a shorthand for the package name. For example, both of the following are valid:
+
+1
+<activity android:name=".MainActivity">
+1
+<activity android:name="com.jessicathornsby.myapplication.MainActivity">
+If you can’t spot any problems with your manifest, then there are a few other potential causes of ActivityNotFoundExceptions. Firstly, if you encounter this error after moving an Activity class from one package to another, then it’s possible that you’ve confused Android Studio and just need to clean and rebuild your project.
+
+An ActivityNotFoundException can also be caused if an error in the target Activity is not loading correctly. To check whether this is occurring in your project, put your intent code inside a try-catch block:
+
+1
+2
+3
+4
+5
+6
+7
+8
+try {
+ 
+//Your code here//
+ 
+} catch ( ActivityNotFoundException e) {
+      e.printStackTrace();
+ 
+}
+Run your application again, and then take a look at Android Studio’s Logcat Monitor to see whether it’s captured any exceptions that may be preventing the target activity from being created. If this is the case, then resolving these errors should solve the ActivityNotFoundException, too.
