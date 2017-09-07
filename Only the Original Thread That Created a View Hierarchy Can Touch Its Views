@@ -1,0 +1,23 @@
+In Android, you can update your UI from the main thread only. If you try to access UI elements from any other thread, then you’re going to encounter this error.
+
+To resolve this issue, identify the part of your background task that’s attempting to update the UI and move it to a runOnUiThread, for example:
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+runOnUiThread(new Runnable() {
+         @Override
+          public void run() {
+ 
+//Update your UI//
+ 
+      }
+ 
+});
+Alternatively, you can use a handler or perform your background work in an AsyncTask, as you can communicate with the main thread using AsyncTask’s onPostExecute() callback method. Finally, if you find yourself regularly switching between threads, then you may want to look into RxAndroid, as this library allows you to create a new thread, schedule work to be performed on this thread, and then post the results to the main thread, all with just a few lines of code.
