@@ -1,0 +1,7 @@
+Open the terminal tab and try building the project manually gradle --stop clean build --stacktrace
+
+The --stop param will kill any running instances of the gradle daemon. Its also possible gradle ran into a .lock file that is blocking its execution. This can happen if a build is terminated before completion. When you run on the command line it may take as long as 3 minutes before gradle gives up and fails. The error message provided by --stacktrace should tell you where the file causing the problem is.
+
+Just delete the lock file: rm <pathToLockFile> then rebuild. This could happen a few times before the build completes.
+
+It would be nice if there was a way to clean up all locks but to my knowledge this doesn't exist.
