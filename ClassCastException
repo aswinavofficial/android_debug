@@ -1,0 +1,11 @@
+The ClassCastException error is related to Java’s type conversion feature, which allows you to cast variables of one type to another. You encounter a ClassCastException when you try to cast an object to a class of which it’s not an instance. For example, both of the following code snippets will result in a ClassCastException:
+
+1
+2
+Object x = new Integer(0);
+System.out.println((String)x);
+1
+ImageView image = (ImageView)context.findViewById(R.id.button);
+This error message contains information about the line that’s causing the ClassCastException error, so navigate to this part of your project, check what objects are being cast there, and resolve any mismatch.
+
+If you can’t spot a problem with your casting, then consider whether you’ve recently moved some Views around in your layout resource files, as some users have reported encountering a ClassCastException after rearranging their Views. If you suspect this may be the cause of your ClassCastException, then tell Android Studio to regenerate your layout files from scratch, by performing a clean/rebuild cycle. This forces Android Studio to properly register your recent layout changes, which should resolve your ClassCastException.
