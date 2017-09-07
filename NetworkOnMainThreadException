@@ -1,0 +1,6 @@
+This exception is thrown when your app attempts to perform networking operations on the main thread, such as sending API requests, connecting to a remote database, or downloading a file. Since network operations can be time-consuming and labour-intensive, they are highly likely to block the main thread, so Android 3.0 (Honeycomb) and higher will throw this error whenever you attempt to make a network request on the main thread.
+
+If you do encounter a NetworkOnMainThreadException, then find the networking code that’s running on your main thread, and move it to a separate thread.
+
+If you do need to make frequent networking requests, then you may want to take a look at Volley, an HTTP library that initiates its own background threads so that all networking requests are performed off the main thread by default.
+
