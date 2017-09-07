@@ -1,0 +1,3 @@
+This may happen because you already have your SDK installation up for Android Developers Bundle with eclipse. First open your SDK manager in the ADT Bundle and update you Android SDK Tools from 21.1 to 22 and then open your Android Studio. For windows user the tools and other SDK packages are saved with the Android Studio application directory. Windows:
+
+\Users\AppData\Local\Android\android-studio\sdk\ Mac: /Applications/Android\ Studio.app/sdk/ Make sure your android-sdk-path is correct and the sdk tool version is 22 or later. Once android studio started, open the Configure > Project Defaults > Project Structure, set your project sdk is Android SDK. Then select SDK tab and select build target (eg: Android 4.2.2). Now  you should be good to start.
