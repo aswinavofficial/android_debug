@@ -1,0 +1,58 @@
+When you compile your app, the APK contains executable bytecode files in the form of Dalvik Executable (DEX) bytecode files. The DEX specification states that a single DEX file can reference a maximum of 65,536 methods, and if you encounter the Too many fields… error then it means your app has gone over this limit. Note that this is a limitation on the number of methods your project references, and not the number of methods your project defines.
+
+If you encounter this error, then you can either:  
+
+Reduce the number of references in your project. One of the most effective ways of trimming your method references is to review your application’s dependencies, as these are often one of the biggest contributors of method references.
+Configure your app to use more than one DEX file, by enabling multidex.
+The process of enabling multidex support will vary depending on the versions of Android your project supports.
+
+If you’re targeting Android 5.0 or higher, then the first step is opening your module-level build.gradle file and setting multiDexEnabled to true:
+
+1
+2
+3
+4
+android {
+   defaultConfig {
+       minSdkVersion 21
+       multiDexEnabled true
+However, if your minSdkVersion is 20 or lower, then you’ll need to add the multiDexEnabled true attribute and then add the multidex support library as a project dependency:
+
+1
+2
+3
+dependencies {
+ compile 'com.android.support:multidex:1.0.1'
+}
+The next step depends on whether or not you’re overriding the Application class.
+
+If your project does override the Application class, then open your Manifest and add the following to the <application> tag:
+
+1
+2
+3
+4
+5
+6
+<application
+           android:name="android.support.multidex.MultiDexApplication" >
+       ...
+       ...
+       ...
+   </application>
+If your project doesn’t override the Application class, then you’ll need to extend MultiDexApplication instead:
+
+1
+public class MyApplication extends MultiDexApplication
+Finally, if you do override the Application class but can’t change the base class, then you can enable multidex by overriding the attachBaseContext() method and calling MultiDex.install(this), for example:
+
+1
+2
+3
+4
+5
+@Override
+ protected void attachBaseContext(Context base) {
+    super.attachBaseContext(base);
+    MultiDex.install(this);
+ }
