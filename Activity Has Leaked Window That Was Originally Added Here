@@ -1,0 +1,18 @@
+This error occurs when trying to show a dialogue after exiting the Activity. If you do encounter this issue, then open your Activity and make sure you’re dismissing the dialogue properly, by calling dismiss() in either your Activity’s onDestroy() or onPause() method, for example:
+
+1
+2
+3
+4
+5
+6
+7
+8
+@Override
+protected void onDestroy()
+{
+       super.onDestroy();
+        if(pDialogue!= null)
+            pDialogue.dismiss();   
+             
+}
