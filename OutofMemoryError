@@ -1,0 +1,19 @@
+This error occurs when your app makes a memory request that the system can’t meet. If you encounter this error message, then start by ruling out all of the most common memory management mistakes. Check that you’ve remembered to unregister all your broadcast receivers and that you’ve stopped all of your services; make sure you’re not holding onto references in any static member variables, and that you’re not attempting to load any large bitmaps.
+
+If you’ve ruled out all the obvious causes of an OutOfMemoryError, then you’ll need to dig deeper and examine exactly how your app is allocating memory, as chances are there are a few areas where you can improve your app’s memory management.
+
+Android Studio has a whole area dedicated to helping you analyze your app’s memory usage, so start by selecting View > Tools Window from the Android Studio toolbar. At this point you’ll see either an Android Monitor or Android Profiler option, depending on the version of Android Studio you have installed.
+
+We’ve discussed working with the Memory Monitor on this website before, but since Android Profiler is a new addition to Android Studio, let’s take a quick look at its major features.
+
+When you open Android Profiler, it starts recording three pieces of information automatically.
+
+Since we’re interested in the way our app is using memory, give the Memory section a click, which will launch the Memory Profiler.
+
+The Memory Profiler consists of a timeline that displays the different kinds of memory currently being allocated by your app, for example Java, native, and stack. Above this graph you’ll find a row of icons that you can use to trigger different actions:
+
+Force a garbage collection event.
+Take an Hprof snapshot of the application memory. This is a snapshot of all the objects in your app’s heap, including the kind of objects your app is allocating, the number of allocated objects, and how much space these objects are taking up.
+Record memory allocations. By recording your app’s memory allocations while performing certain actions, you can identify the specific operations that are consuming too much memory.
+
+To identify the parts of your application that are responsible for the OutOfMemoryError, spend some time interacting with your app, and monitor how your app’s memory allocations change in response to different actions. Once you’ve identified the section of your project that’s causing the problem, spend some time scrutinising it for any memory leaks, as well as any inefficiencies in the way it’s using memory.
