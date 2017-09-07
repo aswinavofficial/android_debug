@@ -1,0 +1,8 @@
+
+I also had the problem.
+
+I downloaded the gradle 3.5 binary distribution zip file, deleted the gradle folder from my project, then went to settings of Android Studio, checked "Offline work", used "Use local gradle distribution" and set the path of unzipped gradle folder on the "Gradle home" and "Service directory path" text fields.
+
+Then I tried to open the project with Android Studio 2.3.
+
+Then a message is shown and I pressed cancel to manually configure the gradle, then I located the unzipped gradle folder again. This solved my problem.
