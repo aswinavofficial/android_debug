@@ -1,0 +1,40 @@
+Actually it is not stuck. It takes more time to build. I have got almost 3 solutions that can fix the issue.
+
+Solution-1:
+
+Following the steps will make it 10 times faster and reduce build time 90%
+
+First create a file named gradle.properties in the following directory:
+
+/home/<username>/.gradle/ (Linux)
+/Users/<username>/.gradle/ (Mac)
+C:\Users\<username>\.gradle (Windows)
+Add this line to the file:
+
+org.gradle.daemon=true
+
+org.gradle.parallel=true
+Solution-2:
+
+If Android Studio has a proxy server setting and can't reach the server then it takes a long time to build, probably its trying to reach the proxy server and waiting for a timeout. When I removed the proxy server setting its working fine.
+
+In Android Studio go to File -> Settings -> Build, Execution, Deployment -> Buil Tools -> Gradle
+
+Check the 'Offline work' under 'Global Gradle settings'
+
+It will reduce 90% gradle build time.
+
+Solution-3
+
+If you are using Google Play services, make sure you aren't using this in your Gradle build script:
+
+compile 'com.google.android.gms:play-services:8.3.0'
+Only use those Google APIs that your app is really using. If all you are using is Google Maps, you would use this:
+
+com.google.android.gms:play-services-maps:8.3.0
+When I did this, my compile time went from over 2 minutes to around 25 seconds. For a list of the Google apis that you can selectively compile against, see:
+
+https://developers.google.com/android/guides/setup
+
+https://stackoverflow.com/questions/29391421/android-studio-gradle-takes-too-long-to-build
+https://plus.google.com/u/0/+RicardoAmaral/posts/e9PG6vSN5w3
