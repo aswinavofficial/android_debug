@@ -1,0 +1,12 @@
+If you’re getting a JDK error whenever you try to build your app, then it means Android Studio is struggling to find where the JDK is installed on your development machine.
+
+To fix this error:
+
+Select File > Project structure… from the Android Studio toolbar.
+Select SDK Location from the left-hand menu.
+Make sure the Use embedded JDK checkbox is selected.
+
+If this doesn’t solve the problem, then navigate back to File > Project structure… > SDK Location, and manually enter the full file path for your JDK. If you’re not sure where the JDK is installed on your development machine, then you can find out by opening the Terminal (Mac) or Command Prompt (Windows) and entering the following command:
+
+1
+/usr/libexec/java_home
