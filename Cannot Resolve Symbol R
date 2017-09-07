@@ -1,0 +1,11 @@
+This error is caused when Android Studio can’t generate your R.java file correctly, and it can often crop up out of nowhere—one minute everything will be working fine, and the next minute every part of your project is failing to compile. To make matters worse, when Android Studio encounters the R.layout error, it’ll usually flag all your layout resource files as containing errors, which makes it difficult to know where to start looking for the source of the error.
+
+Often, the most effective solution is the simplest: clean and rebuild your project. Select Build > Clean Project from the Android Studio toolbar, wait a few moments, and then build your project by selecting Build > Rebuild Project.
+
+If a single clean/rebuild cycle doesn’t work, then try repeating this process a few times, as some developers have reported positive results after completing multiple clean/rebuild cycles in quick succession.
+
+If you encounter this error after moving some files and directories around, then it’s possible that the R.layout error is being caused by a mismatch between Android Studio’s cache and your project’s current layout. If you suspect this may be the case, then select File > Invalidate Caches / Restart > Invalidate and Restart from Android Studio’s toolbar.
+
+Issues with the names of your resources can also prevent the R.java file from being created correctly, so check that you don't have multiple resources with the same name and that none of your file names contain invalid characters. Android Studio only supports lowercase a-z, 0-9, full stops and underscores, and a single invalid character can cause an R.layout error across your entire project, even if you don’t actually use this resource anywhere in your project!
+
+If you do identify and resolve an error, but Android Studio is still displaying the R.layout error, then you may need to complete a clean/rebuild cycle before Android Studio properly registers your changes.
