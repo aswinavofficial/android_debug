@@ -1,0 +1,65 @@
+If you encounter this error when attempting to install your project, then it means the target device doesn’t have enough memory.
+
+If you’re trying to install your project on an AVD, then you should check how much space you’ve assigned this particular AVD:
+
+Launch the AVD Manager.
+Find the AVD in question, and click its accompanying Edit this AVD icon.
+In the window that appears, click Show Advanced Settings.
+Scroll to the Memory and Storage section.
+This section lists the various types of memory you've allocated to this particular AVD. If any of these values are unusually low, then you should increase them to more closely reflect the memory that’s available to your typical Android smartphone or tablet:
+
+RAM. The amount of RAM available to the emulated device.
+VM Heap. How much heap space (i.e. memory) is allocated to the Virtual Machine (VM) of the emulated smartphone or tablet.
+Internal Storage. The amount of non-removable memory available to the emulated device.
+SD card. The amount of removable memory available. If you want to use a virtual SD card that’s managed by Android Studio, then select Studio-managed and enter the size of the virtual SD card you want to create (the minimum recommended value is 100 MB). Alternatively, you can manage the SD card “space” in a file, by selecting External file and then specifying the location you want to use.
+If there’s nothing odd about your AVD’s memory, or you’re trying to install your app on a physical Android smartphone or tablet, then this error usually means that your compiled app is simply too large. An application that takes a significant bite out of the device’s memory at install time is never going to go down well. 
+
+If you need to dramatically reduce the size of your APK, then try the following techniques: 
+
+Use ProGuard to remove unused classes, fields, methods, and attributes. To enable ProGuard, open your module-level build.gradle file and add the following:
+
+01
+02
+03
+04
+05
+06
+07
+08
+09
+10
+11
+12
+13
+14
+15
+buildTypes {
+      release {
+ 
+//Enable ProGuard//
+ 
+          minifyEnabled true
+ 
+//Since we want to reduce our APK size as much as possible, I’m using the settings from the proguard-android-optimize.txt file//
+ 
+          proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+ 
+      }
+  }
+ 
+}
+Use the aapt tool to optimize your drawables with lossless compression, or use a program that’s designed to reduce the size of your PNG files (zopflipng, pngcrush, OptiPNG, TinyPNG, or pngquant) or the size of your JPEGs (packJPG). Alternatively,  you may want to try replacing your PNG and JPEG files with images in the WebP format.
+Remember to remove all debug-related functionality from the release version of your app. Android doesn’t require this information to run, so it’s just taking up unnecessary space.
+Scour your project for any duplicate resources. Even lightweight resources like duplicate strings contribute something towards your final APK size.
+Use Lint to identify any resources that aren’t referenced anywhere in your code, and remove these resources. To run Lint, select Analyze > Inspect Code... from the Android Studio toolbar.
+Enable resource shrinking, by adding shrinkResources true to your project’s build.gradle file.
+If you need to use variations of the same image, then use the same base image and customize it at runtime, rather than adding multiple versions of the same image to your project. For example, you can apply different colours to an image using android:tint and tintMode, and you can rotate an image using android:fromDegrees, android:toDegrees, android:pivotX, and android:pivotY.
+Optimize your libraries. Try to remove any unnecessary or memory-intensive libraries from your project. If you do need to use a large library, then check whether there’s any way you can optimize this library for the mobile environment, as external library code often isn’t written with mobile in mind. You should also bear in mind that many libraries contain a large amount of localized strings. If your app doesn’t officially support these libraries, then you may be able to reduce the size of the library by telling Gradle not to include these strings in your compiled APK. To specify the languages that your app officially supports, open your module-level build.gradle file and use the resConfigs attribute. For example, here we’re specifying that we want to include only English-language strings in our project:
+
+1
+2
+3
+android {
+defaultConfig {
+  resConfigs "en"
+Consider whether your APK contains a large amount of content that the individual user may download but never use. For example, a device with an hdpi screen doesn’t have much use for xxxhdpi assets! One of the most effective ways of reducing the size of your APK is to separate it into multiple APKs, so when the user downloads your app, they’ll receive an APK that contains only the code and resources that make sense for their particular device. You’ll find more information on creating APKs that target different screen densities and specific ABIs (application binary interfaces) over at the official Android docs.
